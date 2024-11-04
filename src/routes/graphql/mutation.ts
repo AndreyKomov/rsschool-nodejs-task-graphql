@@ -181,7 +181,7 @@ export const Mutation = new GraphQLObjectType({
 
     // Subscription
     subscribeTo: {
-      type: User,
+      type: new GraphQLNonNull(GraphQLString),
       args: {
         userId: { type: new GraphQLNonNull(UUIDType) },
         authorId: { type: new GraphQLNonNull(UUIDType) },
@@ -190,22 +190,19 @@ export const Mutation = new GraphQLObjectType({
         root,
         { userId: id, authorId }: { userId: UUID; authorId: UUID },
         { prisma }: Context,
-      ) =>
-        await prisma.user.update({
-          where: {
-            id,
-          },
+      ) => {
+        await prisma.subscribersOnAuthors.create({
           data: {
-            userSubscribedTo: {
-              create: {
-                authorId,
-              },
-            },
+            subscriberId: id,
+            authorId: authorId,
           },
-        }),
+        });
+
+        return authorId;
+      },
     },
     unsubscribeFrom: {
-      type: new GraphQLNonNull(UUIDType),
+      type: GraphQLBoolean,
       args: {
         userId: { type: new GraphQLNonNull(UUIDType) },
         authorId: { type: new GraphQLNonNull(UUIDType) },
@@ -223,7 +220,8 @@ export const Mutation = new GraphQLObjectType({
             },
           },
         });
-        return subscriberId;
+
+        return !subscriberId;
       },
     },
   },
