@@ -16,8 +16,8 @@ import { Context } from './types/interfaces.js';
 export const GraphQLMemberTypeId = new GraphQLEnumType({
   name: 'MemberTypeId',
   values: {
-    basic: { value: MemberTypeId.BASIC },
-    business: { value: MemberTypeId.BUSINESS },
+    BASIC: { value: MemberTypeId.BASIC },
+    BUSINESS: { value: MemberTypeId.BUSINESS },
   },
 });
 
