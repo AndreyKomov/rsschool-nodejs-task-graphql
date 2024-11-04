@@ -68,7 +68,7 @@ const ChangeProfileInput = new GraphQLInputObjectType({
 export const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    // Post
+    // Post mutation
     createPost: {
       type: Post,
       args: { dto: { type: new GraphQLNonNull(CreatePostInput) } },
@@ -105,7 +105,7 @@ export const Mutation = new GraphQLObjectType({
         }),
     },
 
-    // User
+    // User mutation
     createUser: {
       type: User,
       args: { dto: { type: CreateUserInput } },
@@ -142,7 +142,7 @@ export const Mutation = new GraphQLObjectType({
         }),
     },
 
-    // Profile
+    // Profile mutation
     createProfile: {
       type: Profile,
       args: { dto: { type: CreateProfileInput } },
@@ -179,7 +179,7 @@ export const Mutation = new GraphQLObjectType({
         }),
     },
 
-    // Subscription
+    // Subscription mutation
     subscribeTo: {
       type: new GraphQLNonNull(GraphQLString),
       args: {
